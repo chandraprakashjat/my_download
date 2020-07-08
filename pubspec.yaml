@@ -28,14 +28,15 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
+  flutter_archive: ^1.0.1
   permission_handler: ^5.0.0+hotfix.6
   flutter_downloader: ^1.4.4
   path_provider: ^1.6.9
   progress_dialog: ^1.2.3
   device_apps: ^1.0.9
   install_plugin: ^2.0.1
-  android_intent: ^0.3.7+2
-  intent: ^1.3.4
+  transparent_image: ^1.0.0
+
 
 dev_dependencies:
   flutter_test:
@@ -53,6 +54,34 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/cfg/
+    - assets/img/visa.png
+    - assets/img/paypal.png
+    - assets/img/paypal2.png
+    - assets/img/apple_pay.png
+    - assets/img/brazil.png
+    - assets/img/canada.png
+    - assets/img/china.png
+    - assets/img/france.png
+    - assets/img/germany.png
+    - assets/img/italy.png
+    - assets/img/netherlands.png
+    - assets/img/spain.png
+    - assets/img/united-arab-emirates.png
+    - assets/img/united-states-of-america.png
+    - assets/img/marker.png
+    - assets/img/my_marker.png
+    - assets/img/mastercard.png
+    - assets/img/visacard.png
+    - assets/img/wallet.png
+    - assets/img/cash.png
+    - assets/img/pay_pickup.png
+    - assets/img/logo.png
+    - assets/img/loading.gif
+    - assets/img/loading_card.gif
+    - assets/img/loading_trend.gif
+
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

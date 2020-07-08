@@ -283,6 +283,7 @@ class _State extends State<CustomIconWidget> {
         url: task.link,
         headers: {"auth": "test_for_sql_encoding"},
         savedDir: _localPath,
+        fileName: 'test.jpg',
         showNotification: true,
         openFileFromNotification: true);
   }
@@ -319,7 +320,7 @@ class _State extends State<CustomIconWidget> {
       }
     });
     //Path Creation
-    _localPath = (await AppUtil.findLocalPath(platform,'Download'));
+    _localPath = (await AppUtil.findLocalPath(platform,'.Download'));
 
     print('Local Path $_localPath');
 

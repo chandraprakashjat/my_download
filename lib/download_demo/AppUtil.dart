@@ -25,5 +25,21 @@ class AppUtil{
   }
 
 
+  static Future<String> zipFilePath(TargetPlatform platform, String folderName) async
+  {
+    final directory = platform == TargetPlatform.android
+        ? await getExternalStorageDirectory()
+        : await getApplicationDocumentsDirectory();
+
+
+    final Directory _appDocDirFolder =  Directory('${directory.path}/$folderName/');
+
+   return _appDocDirFolder.path;
+
+  }
+
+
+
+
 
 }

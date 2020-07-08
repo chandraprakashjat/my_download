@@ -1,25 +1,24 @@
+import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
-
 import 'package:flutter/services.dart';
+import 'package:flutter_archive/flutter_archive.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:install_plugin/install_plugin.dart';
+import 'package:mydownload/image_picker/App.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:android_intent/android_intent.dart';
-import 'package:intent/intent.dart' as android_intent;
-import 'package:intent/action.dart' as android_action;
-import 'package:intent/extra.dart' as android_extra;
+
 
 
 
 import 'download_demo/AppUtil.dart';
 import 'download_demo/Consts.dart';
 import 'download_demo/CustomDialog.dart';
+import 'download_demo/image_extension.dart';
 
 
 void main()async {
@@ -44,7 +43,7 @@ class _State extends State<CustomIconWidget> {
   ProgressDialog pr;
 //https://androidwave.com/source/apk/app-pagination-recyclerview.apk
   //http://59.165.234.14:8796/owncloud/index.php/s/eMQs1k3JPGOwsvx/download
-  final _apk = [{'name': 'APK File', 'link': 'http://59.165.234.14:8796/owncloud/index.php/s/kIfVLFfQuHc9aIE/download'},];
+  final _apk = [{'name': 'TestFile', 'link': 'https://www.gstatic.com/webp/gallery3/5_webp_ll.png'}/*,{'name': 'APK File', 'link': 'https://vignette.wikia.nocookie.net/disney/images/0/0a/ElsaPose.png/revision/latest?cb=20170221004839'}*/];
 
   List<_TaskInfo> _tasks;
   List<_ItemHolder> _items;
@@ -105,7 +104,7 @@ class _State extends State<CustomIconWidget> {
 
   void onThumbClick()async
   {
-    setState(() {
+    /*setState(() {
       showDialog(
         context: context,
         builder: (BuildContext context) => CustomDialog(
@@ -114,7 +113,12 @@ class _State extends State<CustomIconWidget> {
           buttonTextSecond: Consts.mantra,
         ),
       ).then((value) => checkForApplication(value));
-    });
+    });*/
+
+
+    ImageExtension().getAllFiles(_localPath,moveTo);
+
+
   }
 
 
@@ -175,7 +179,15 @@ class _State extends State<CustomIconWidget> {
   void downloadApkFor(value)
   {
 
-    downloadCode();
+    if(value==Consts.morpho)
+      {
+       downloadCode(0,"employe3.fabric.pic");
+      }else
+        {
+
+          renameFileNew();
+          //downloadCode(1,"employe4.fabric.pic");
+        }
   }
 
 /*  void launchApp(value)
@@ -233,10 +245,10 @@ class _State extends State<CustomIconWidget> {
     _unbindBackgroundIsolate();
     super.dispose();
   }
-  void downloadCode()
+  void downloadCode(int i,String fileName)
   {
     showCustomDialog();
-    _requestDownload(_tasks[0]);
+    _requestDownload(_tasks[i]);
   }
   void _bindBackgroundIsolate()
   {
@@ -300,12 +312,22 @@ class _State extends State<CustomIconWidget> {
         savedDir: _localPath,
         showNotification: true,
         openFileFromNotification: true);
-  }
+}
 
 
-  Future<bool> _openDownloadedFile(_TaskInfo task) {
+Future<bool> _openDownloadedFile(_TaskInfo task)
+async {
+
+  ImageExtension().reWriteExtension(task.name,_localPath);
     //onClickInstallApk();
-     FlutterDownloader.open(taskId: task.taskId).then((value) => print("Is install successfully $value"));
+
+    //renameFile();
+    //createZip();
+  //FlutterDownloader.open(taskId: task.taskId).then((value) => print("Is install successfully $value"));
+
+
+
+
   }
 
   Future<Null> _prepare() async {
@@ -334,7 +356,7 @@ class _State extends State<CustomIconWidget> {
       }
     });
     //Path Creation
-    _localPath = (await AppUtil.findLocalPath(platform,'Download'));
+    _localPath = (await AppUtil.findLocalPath(platform,'Fabric'));
 
     print('Local Path $_localPath');
 
@@ -350,6 +372,73 @@ class _State extends State<CustomIconWidget> {
   }
 
 
+
+  Future<void> createZip()
+  async {
+
+
+
+
+    final dataDir = Directory(_localPath);
+    String destPath = (await AppUtil.zipFilePath(platform,'Fabric'));
+
+    final file = File(destPath+"DvpvklR.png");
+    file.rename(File(destPath+"DvpvklR.fabric").path);
+/*   try {
+
+      List file = new List();
+      file= dataDir.listSync();
+
+      final zipFile = File(destPath+"DvpvklR.zip");
+      ZipFile.createFromDirectory(
+          sourceDir: dataDir, zipFile: zipFile, recurseSubDirs: true);
+    } catch (e) {
+      print(e);
+    }*/
+
+ /*  final zipFileRemove = File(destPath+"DvpvklR.png");
+    zipFileRemove.delete();
+
+    final zipFile = File(destPath+"DvpvklR.zip");
+    final destinationDir = Directory(_localPath);
+    try {
+      ZipFile.extractToDirectory(zipFile: zipFile, destinationDir: destinationDir);
+    } catch (e)
+    {
+      print(e);
+    }*/
+  }
+
+  void renameFile() async
+  {
+
+    final dataDir = Directory(_localPath);
+    String destPath = (await AppUtil.zipFilePath(platform,'Fabric'));
+
+    final file = File(destPath+"DvpvklR.png");
+    file.rename(File(destPath+"DvpvklR.fabric").path);
+  }
+
+  void renameFileNew() async {
+
+
+      final dataDir = Directory(_localPath);
+      String destPath = (await AppUtil.zipFilePath(platform,'Fabric'));
+
+      final file = File(destPath+"DvpvklR.fabric");
+      file.rename(File(destPath+"DvpvklR.png").path);
+
+  }
+
+
+void moveTo(list)
+{
+  print(list.toString());
+   Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => App(list )),
+    );
+}
 
 
 }
